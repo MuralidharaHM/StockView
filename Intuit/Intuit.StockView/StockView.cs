@@ -101,5 +101,39 @@ namespace Intuit.StockView
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DefineStock dStock = new DefineStock();
+            dStock.ShowDialog();
+         
+        }
+
+   
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void StockView_Resize(object sender, EventArgs e)
+        {
+            notifyIcon.BalloonTipTitle = "Stock View app is minimized";
+            notifyIcon.BalloonTipText = "Stock live updates will be paused untill maximized";
+
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(500);
+                stockUpdater.Stop();
+                this.Hide();
+                
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon.Visible = false;
+                stockUpdater.Start();
+            }
+        }
     }
 }

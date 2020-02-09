@@ -29,6 +29,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
             _bWorker = new BackgroundWorker();
             _bWorker.DoWork += Fetch;
             _bWorker.RunWorkerCompleted += Completed;
+            _bWorker.WorkerSupportsCancellation = true;
             _stocks = stocks;
             _frequency = frequency;
             createStockInfo();
@@ -43,7 +44,8 @@ namespace Intuit.BusinessLogic.StockUpdaters
         public void Start()
         {
              FetchHistorical();
-            _bWorker.RunWorkerAsync();
+            if (!_bWorker.IsBusy)
+                _bWorker.RunWorkerAsync();
 
         }
 
@@ -59,13 +61,14 @@ namespace Intuit.BusinessLogic.StockUpdaters
         }
         private async void FetchHistorical()
         {
-             var task= await _apiStockfetcher.GetStockDataAsync(_stocks, 1);
+           
+            var task= await _apiStockfetcher.GetStockDataAsync(_stocks, 1);
              mergeHistoricalStockList(task);
 
         }
         private  void Fetch(object sender, DoWorkEventArgs e)
         {
-            
+          
             if (_stocks.Count == 1)
             {
                 mergeCurrentStockSingle(_apiStockfetcher.GetCurrentStockData(_stocks[0].ID));
@@ -74,7 +77,11 @@ namespace Intuit.BusinessLogic.StockUpdaters
             {
                 mergeCurrentStockList(_apiStockfetcher.GetCurrentStockList(_stocks));
             }
-           
+            if (_bWorker.CancellationPending == true)
+            {
+                e.Cancel = true;
+                return;
+            }
             e.Result = _stockInfos;
         }
 
@@ -106,6 +113,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
 
         private async void Completed(object sender, RunWorkerCompletedEventArgs e)
         {
+            
             if (Notify != null && e.Result!=null)
             {
                 Notify.BeginInvoke((List<StockInfo>)e.Result, null, null);
@@ -113,12 +121,12 @@ namespace Intuit.BusinessLogic.StockUpdaters
 
              await Task.Delay(5000);
 
-            _bWorker.RunWorkerAsync(); 
+            if (!_bWorker.CancellationPending && !e.Cancelled && !_bWorker.IsBusy) _bWorker.RunWorkerAsync(); ;
+             
         }
 
         public void Stop()
         {
-            if(_bWorker.IsBusy)
             _bWorker.CancelAsync();
         }
     }

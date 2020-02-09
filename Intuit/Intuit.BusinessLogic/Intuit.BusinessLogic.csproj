@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Search\StockSearch.cs" />
     <Compile Include="StockContainers\StockContainerFactory.cs" />
     <Compile Include="StockFetchers\ApiStockFetcher.cs" />
     <Compile Include="StockFetchers\StockFetcher.cs" />

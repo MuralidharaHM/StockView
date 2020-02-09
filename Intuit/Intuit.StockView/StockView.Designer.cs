@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StockView));
             this.dtGrdStockView = new System.Windows.Forms.DataGridView();
             this.lblHeaderMyStock = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dtGrdStockView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,14 +46,14 @@
             this.dtGrdStockView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtGrdStockView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dtGrdStockView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe Marker", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGrdStockView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe Marker", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGrdStockView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtGrdStockView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGrdStockView.GridColor = System.Drawing.SystemColors.Control;
             this.dtGrdStockView.Location = new System.Drawing.Point(86, 89);
@@ -74,15 +78,34 @@
             this.lblHeaderMyStock.TabIndex = 1;
             this.lblHeaderMyStock.Text = "My Defined Stocks";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(741, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Define Stocks";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Minimize to Tray";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
             // StockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 496);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblHeaderMyStock);
             this.Controls.Add(this.dtGrdStockView);
             this.Name = "StockView";
             this.Text = "Stock View";
+            this.Resize += new System.EventHandler(this.StockView_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dtGrdStockView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -93,6 +116,8 @@
 
         private System.Windows.Forms.DataGridView dtGrdStockView;
         private System.Windows.Forms.Label lblHeaderMyStock;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

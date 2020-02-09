@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefineStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DefineStock.Designer.cs">
+      <DependentUpon>DefineStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="StockView.cs">
       <SubType>Form</SubType>
     </Compile>

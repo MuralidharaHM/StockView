@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.StockView", "Intuit.StockView.csproj", "{0FA209C4-D667-4DE5-8F26-43B9143C2299}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5EE7AB6-1AE1-407B-A156-A796E2DBAADE} = {A5EE7AB6-1AE1-407B-A156-A796E2DBAADE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.BusinessLogic", "..\Intuit.BusinessLogic\Intuit.BusinessLogic.csproj", "{A5EE7AB6-1AE1-407B-A156-A796E2DBAADE}"
 EndProject
