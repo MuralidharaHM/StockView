@@ -3,3 +3,10 @@
 ################################################################################
 
 /Intuit/Intuit.BusinessLogic/bin/Debug
+/Intuit/Intuit.BusinessLogic/obj/Debug
+/Intuit/Intuit.BusinessLogic.UnitTests/bin/Debug
+/Intuit/Intuit.BusinessLogic.UnitTests/obj/Debug
+/Intuit/Intuit.StockView/.vs/Intuit.StockView
+/Intuit/Intuit.StockView/bin/Debug
+/Intuit/Intuit.StockView/obj/Debug
+/Intuit/Intuit.StockView/packages
