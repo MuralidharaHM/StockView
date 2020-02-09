@@ -52,7 +52,7 @@
             this.dtGrdStockView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtGrdStockView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGrdStockView.GridColor = System.Drawing.SystemColors.Control;
-            this.dtGrdStockView.Location = new System.Drawing.Point(150, 89);
+            this.dtGrdStockView.Location = new System.Drawing.Point(86, 89);
             this.dtGrdStockView.Name = "dtGrdStockView";
             this.dtGrdStockView.ReadOnly = true;
             this.dtGrdStockView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -60,7 +60,7 @@
             this.dtGrdStockView.ShowCellErrors = false;
             this.dtGrdStockView.ShowCellToolTips = false;
             this.dtGrdStockView.ShowEditingIcon = false;
-            this.dtGrdStockView.Size = new System.Drawing.Size(596, 253);
+            this.dtGrdStockView.Size = new System.Drawing.Size(751, 337);
             this.dtGrdStockView.TabIndex = 0;
             this.dtGrdStockView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtGrdStockView_CellFormatting);
             // 

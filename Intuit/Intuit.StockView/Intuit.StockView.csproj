@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Intuit.BusinessLogic">
+    <Reference Include="Intuit.BusinessLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Intuit.BusinessLogic\bin\Debug\Intuit.BusinessLogic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
