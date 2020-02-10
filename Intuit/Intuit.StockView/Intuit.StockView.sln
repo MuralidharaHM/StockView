@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.StockView", "Intuit.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.BusinessLogic", "..\Intuit.BusinessLogic\Intuit.BusinessLogic.csproj", "{A5EE7AB6-1AE1-407B-A156-A796E2DBAADE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{49F93CA3-1620-41D6-8E63-3D49BA2A8F04} = {49F93CA3-1620-41D6-8E63-3D49BA2A8F04}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.BusinessLogic.UnitTests", "..\Intuit.BusinessLogic.UnitTests\Intuit.BusinessLogic.UnitTests.csproj", "{47B9FEEF-0BFF-43A3-8436-2E4ED88EFB32}"
 EndProject

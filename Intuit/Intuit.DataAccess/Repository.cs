@@ -14,7 +14,9 @@ namespace Intuit.DataAccess
         void Insert(T employee);
         void Update(T employee);
         void Delete(int Id);
-       
+        void Save();
+
+
     }
     public class StockRepository<T> : IStockRepository<T> where T :class
     {
@@ -22,7 +24,7 @@ namespace Intuit.DataAccess
         DbContext _dbContext;
         DbSet<T> _table;
 
-        StockRepository(DbContext dbContext)
+        public   StockRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
             _table = _dbContext.Set<T>();
@@ -51,5 +53,11 @@ namespace Intuit.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public void Save()
+        {
+            _dbContext.SaveChanges();
+        }
+
     }
 }

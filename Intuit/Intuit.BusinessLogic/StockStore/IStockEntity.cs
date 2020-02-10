@@ -14,7 +14,14 @@ namespace Intuit.BusinessLogic.StockStore
         void Delete(int Id);
     }
 
-
+    /// <summary>
+    /// Ideally shouldnt be used but for demo
+    /// </summary>
+    public interface IStockListStore
+    {
+        void Save(List<Stock> stock);
+      
+    }
 
 
 

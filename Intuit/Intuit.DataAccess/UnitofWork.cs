@@ -10,27 +10,29 @@ namespace Intuit.DataAccess
   
     public class UnitOfWork : IDisposable
     {
-        //should be single TODO
-         DbContext _dbContext;
+        
+        static DbContext _dbContext;
 
+        static readonly object b = new object();
         private UnitOfWork()
         {
 
         }
         public void Dispose()
         {
-           
+            _dbContext.Dispose();
         }
 
-        public void Save()
+      
+        public static DbContext GetDbContext()
         {
-            _dbContext.SaveChanges();
-        }
+            lock(b)
+            {
+                if (_dbContext==null) _dbContext= new DbContext("");
+            }
 
-        public DbContext GetDbContext()
-        {
-
-           return  new DbContext("");
+             
+            return _dbContext;
         }
     }
     

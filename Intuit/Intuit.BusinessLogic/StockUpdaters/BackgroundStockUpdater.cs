@@ -116,9 +116,12 @@ namespace Intuit.BusinessLogic.StockUpdaters
         private void mergeCurrentStockSingle(Stock item)
         {
             var sInfo = _stockInfos.Where(a => a.ID == item.ID).FirstOrDefault();
-            sInfo.Price = item.Price;
-            sInfo.Name = item.Name;
-            sInfo.ID = item.Name;
+            if (sInfo != null)
+            {
+                sInfo.Price = item.Price;
+                sInfo.Name = item.Name;
+                sInfo.ID = item.Name;
+            }
         }
 
         private void mergeHistoricalStockList(List<HistoricalStockData> stock)
@@ -126,9 +129,12 @@ namespace Intuit.BusinessLogic.StockUpdaters
             foreach (var item in stock)
             {
                 var sInfo = _stockInfos.Where(a => a.ID == item.ID).FirstOrDefault();
-                sInfo.PrevDayPrice = item.Price;
-                sInfo.High = item.High;
-                sInfo.Low = item.Low;
+                if (sInfo != null)
+                {
+                    sInfo.PrevDayPrice = item.Price;
+                    sInfo.High = item.High;
+                    sInfo.Low = item.Low;
+                }
             }
         }
 

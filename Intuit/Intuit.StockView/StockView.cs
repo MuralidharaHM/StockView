@@ -1,6 +1,7 @@
 ﻿using Intuit.BusinessLogic.StockContainers;
 using Intuit.BusinessLogic.StockFetchers;
 using Intuit.BusinessLogic.Stocks;
+using Intuit.BusinessLogic.StockStore;
 using Intuit.BusinessLogic.StockUpdaters;
 using System;
 using System.Collections.Generic;
@@ -18,23 +19,22 @@ namespace Intuit.StockView
     {
         IDefinedStockContainer definedStockContainer;
         IStockUpdater stockUpdater;
-        static int FrequencyModel ;
+        IStockEntityStore _stockStore;
         public  StockView()
         {
             InitializeComponent();
-         
 
             //define dependencies
             definedStockContainer = StockContainerCreator.GetDefinedStockContainer();
             definedStockContainer.OnAdd += onStockAdded;
             definedStockContainer.OnRemove += onStockRemoved;
 
-
             //fetch saved Stocks
            
             stockUpdater = StockUpdaterFactory.Create();
             stockUpdater.Notify += OnNotified;
 
+            //_stockStore = StockStoreFactory.GetStockStore();
             LoadFrequency();
         }
 
@@ -177,7 +177,8 @@ namespace Intuit.StockView
 
         private void btnSaveStocks_Click(object sender, EventArgs e)
         {
-
+            //Save to DB TODO- Business logic ready
+            //_stockStore.Save();
         }
     }
 }

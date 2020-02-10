@@ -12,3 +12,10 @@
 /Intuit/Intuit.StockView/packages
 /Intuit/Intuit.DataAccess/bin/Debug
 /Intuit/Intuit.DataAccess/obj/Debug
+/Intuit/Intuit.BusinessLogic/bin/Release
+/Intuit/Intuit.BusinessLogic/obj/Release
+/Intuit/Intuit.DataAccess/bin/Release
+/Intuit/Intuit.DataAccess/obj/Release
+/Intuit/Intuit.StockView/bin/Release
+/Intuit/Intuit.BusinessLogic.UnitTests/obj/Release
+/Intuit/Intuit.StockView/obj/Release

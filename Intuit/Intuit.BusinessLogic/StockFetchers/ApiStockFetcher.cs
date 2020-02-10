@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Intuit.BusinessLogic.StockFetchers
 {
-    public interface IApiStockDataFetch : IStockDataFetch<Stock>, IHistoricalDataFetch<IStockIdentity, HistoricalStockData>
+    public interface IApiStockDataFetch : IStockDataFetch<Stock>, IHistoricalDataFetch<IStockIdentity, HistoricalStockData>, IDisposable
     {
 
     }
@@ -48,20 +48,21 @@ namespace Intuit.BusinessLogic.StockFetchers
         public decimal changePercent { get; set; }
 
     }
-    internal class ApiStockDataFetch : IApiStockDataFetch, IDisposable
+    internal class ApiStockDataFetch : IApiStockDataFetch
     {
+        //TODO:Should be read from Configuration 
         readonly string apiCurrentUrl = "https://financialmodelingprep.com/api/v3/stock/real-time-price/";
         readonly string apiHistoricalUrl = "https://financialmodelingprep.com/api/v3/historical-price-full/";
         HttpClient client;
         public ApiStockDataFetch()
         {
-            client = new HttpClient();
+           
         }
 
 
         public void Dispose()
         {
-            client.Dispose();
+            //client.Dispose();
         }
 
         public Stock GetCurrentStockData(string StockName)
@@ -74,17 +75,20 @@ namespace Intuit.BusinessLogic.StockFetchers
             {
                 //logging
             }
+            
             return null;
         }
 
         public async Task<Stock> GetCurrentStockDataAsync(string StockName)
         {
+            using (client = new HttpClient())
+            {
+                var resp = await client.GetAsync(apiCurrentUrl + StockName);
+                var jsonString = await resp.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeObject<FinStock>(jsonString);
 
-            var resp = await client.GetAsync(apiCurrentUrl + StockName);
-            var jsonString = await resp.Content.ReadAsStringAsync();
-            var res = JsonConvert.DeserializeObject<FinStock>(jsonString);
-
-            return Convert(res);
+                return Convert(res);
+            }
         }
 
         public List<Stock> GetCurrentStockList(List<IStockIdentity> StockNames)
@@ -102,11 +106,14 @@ namespace Intuit.BusinessLogic.StockFetchers
 
         public async Task<List<Stock>> GetCurrentStockListAsync(List<IStockIdentity> StockNames)
         {
-            var resp = await client.GetAsync(apiCurrentUrl + string.Join(",", StockNames.Select(a => a.ID)));
-            var jsonString = await resp.Content.ReadAsStringAsync();
-            var res = JsonConvert.DeserializeObject<FinStockList>(jsonString);
+            using (client = new HttpClient())
+            {
+                var resp = await client.GetAsync(apiCurrentUrl + string.Join(",", StockNames.Select(a => a.ID)));
+                var jsonString = await resp.Content.ReadAsStringAsync();
+                var res = JsonConvert.DeserializeObject<FinStockList>(jsonString);
 
-            return Convert(res).ToList();
+                return Convert(res).ToList();
+            }
         }
 
 
@@ -126,10 +133,12 @@ namespace Intuit.BusinessLogic.StockFetchers
         public async Task<List<HistoricalStockData>> GetStockDataAsync(List<IStockIdentity> stocks, int days)
         {
             List<HistoricalStockData> data = new List<HistoricalStockData>();
-
-            var tasks = stocks.Select(async  (stock) =>
+            using (client = new HttpClient())
             {
-                var resp = await  client.GetAsync(apiHistoricalUrl + stock.ID + "?timeseries=" + days.ToString());
+                var tasks = stocks.Select(async (stock) =>
+            {
+
+                var resp = await client.GetAsync(apiHistoricalUrl + stock.ID + "?timeseries=" + days.ToString());
                 var jsonString = await resp.Content.ReadAsStringAsync();
                 var res = JsonConvert.DeserializeObject<FinList>(jsonString);
 
@@ -139,10 +148,10 @@ namespace Intuit.BusinessLogic.StockFetchers
                 }
             });
 
-             await Task.WhenAll(tasks);
+                await Task.WhenAll(tasks);
 
-
-            return data;
+                return data;
+            }
         }
 
 
@@ -175,10 +184,8 @@ namespace Intuit.BusinessLogic.StockFetchers
                 Price = stock.price +n.Next(-2, 10)
             };
 
-
         }
 
-        
         private IEnumerable<Stock> Convert(FinStockList stocks)
         {
 
