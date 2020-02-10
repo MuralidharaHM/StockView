@@ -18,73 +18,75 @@ namespace Intuit.StockView
     {
         IDefinedStockContainer definedStockContainer;
         IStockUpdater stockUpdater;
-        IHistoricalDataFetch<IStockIdentity, HistoricalStockData> historicalFetch;
-        List<StockViewDisplay> DataSource = new List<StockViewDisplay>();
+      
         public  StockView()
         {
             InitializeComponent();
-           
+         
 
             //define dependencies
             definedStockContainer = StockContainerCreator.GetDefinedStockContainer();
-            historicalFetch = StockFetcherFactory.GetStockHistorical();
+            definedStockContainer.OnAdd += onStockAdded;
+            definedStockContainer.OnRemove += onStockRemoved;
 
-            definedStockContainer.Add(new Stock() { Name = "AAPL", ID = "AAPL" });
-            definedStockContainer.Add(new Stock() { Name = "BIOX", ID = "BIOX" });
-            definedStockContainer.Add(new Stock() { Name = "GHM", ID = "GHM" });
-            definedStockContainer.Add(new Stock() { Name = "PALL", ID = "PALL" });
-            definedStockContainer.Add(new Stock() { Name = "TRTY", ID = "TRTY" });
-            setDataSource();
+
             //fetch saved Stocks
-            List<IStockIdentity> identities = definedStockContainer.Stocks.Select(a => a as IStockIdentity).ToList();
            
-            stockUpdater = StockUpdaterFactory.Create(identities);
+            stockUpdater = StockUpdaterFactory.Create();
             stockUpdater.Notify += OnNotified;
-            stockUpdater.Start();
 
+         
+        }
 
+        private void onStockAdded()
+        {
+            stockUpdater.Stop();
+            startUpdater();
+        }
 
+        private void onStockRemoved()
+        {
+            stockUpdater.Stop();
+            startUpdater();
+        }
 
+        private void startUpdater()
+        {
+            if (definedStockContainer.Stocks.Count > 0)
+                stockUpdater.Start(definedStockContainer.Stocks.Select(a => a as IStockIdentity).ToList());
+            else
+                dtGrdStockView.DataSource = null;
         }
 
         public void OnNotified(List<StockInfo> stock)
         {
-           
+            List<StockViewDisplay> dataSource = new List<StockViewDisplay>();
+
             foreach (var item in stock)
             {
-               var d= DataSource.Where(a => a.StockName == item.ID).FirstOrDefault();
-                d.Price = item.Price;
-                d.Change= item.GetChange();
-                d.ChangePercent = (item.PrevDayPrice!=0? ((d.Change/ item.PrevDayPrice) * 100).ToString("0.##"):"0") +"%";
-                d.High = item.High;
-                d.Low = item.Low;
+                dataSource.Add(new StockViewDisplay()
+                {
+                     
+                    StockName= item.Name,
+                    Price = item.Price,
+                    Change = item.GetChange(),
+                    ChangePercent = (item.PrevDayPrice != 0 ? ((item.GetChange() / item.PrevDayPrice) * 100).ToString("0.##") : "0") + "%",
+                    High = item.High,
+                    Low = item.Low
+                    
+                });
                 
             }
 
 
-            dtGrdStockView.BeginInvoke((MethodInvoker)delegate () {
-                dtGrdStockView.DataSource = DataSource;
-            });
+           dtGrdStockView.BeginInvoke((MethodInvoker)delegate () {
+               var source = new BindingSource();
+               source.DataSource = dataSource;
+               dtGrdStockView.DataSource = source;
+           });
         }
 
-       
-
-    private void setDataSource()
-        {
-            mergeData();
-            var source = new BindingSource();
-            source.DataSource = DataSource;
-            dtGrdStockView.DataSource = source;
-        }
-
-        private void mergeData()
-        {
-            foreach (var item in definedStockContainer.Stocks)
-            {
-                DataSource.Add(new StockViewDisplay() { StockName = item.Name });
-            }
-         
-        }
+   
 
         private void dtGrdStockView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -104,7 +106,7 @@ namespace Intuit.StockView
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DefineStock dStock = new DefineStock();
+            DefineStockView dStock = new DefineStockView();
             dStock.ShowDialog();
          
         }
@@ -127,13 +129,26 @@ namespace Intuit.StockView
                 notifyIcon.ShowBalloonTip(500);
                 stockUpdater.Stop();
                 this.Hide();
-                
+
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
                 notifyIcon.Visible = false;
-                stockUpdater.Start();
+                startUpdater();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DefineStockView dfStock = new DefineStockView();
+            dfStock.ShowDialog();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+
+            StockRemoveView stckRemover = new StockRemoveView();
+            stckRemover.ShowDialog();
         }
     }
 }

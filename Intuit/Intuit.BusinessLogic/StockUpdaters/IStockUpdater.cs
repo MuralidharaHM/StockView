@@ -10,8 +10,9 @@ namespace Intuit.BusinessLogic.StockUpdaters
     public delegate void NotifyUpdate(List<StockInfo> stock);
     public interface IStockUpdater:IDisposable
     {
-        void Start();
+        void Start(List<IStockIdentity> stocks);
         void Stop();
+
 
         event NotifyUpdate Notify;
     }

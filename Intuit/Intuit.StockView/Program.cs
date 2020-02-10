@@ -16,7 +16,7 @@ namespace Intuit.StockView
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StockView());
+            Application.Run(new  StockView());
         }
     }
 }

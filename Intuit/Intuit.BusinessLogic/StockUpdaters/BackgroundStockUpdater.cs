@@ -13,26 +13,22 @@ namespace Intuit.BusinessLogic.StockUpdaters
     
     internal class BackgroundStockUpdater : IStockUpdater
     {
-        IApiStockDataFetch _apiStockfetcher;
-        BackgroundWorker _bWorker;
-
-        int _frequency;
-
         public event NotifyUpdate Notify;
 
-        List<IStockIdentity> _stocks;
+        IApiStockDataFetch _apiStockfetcher;
+        BackgroundWorker _bWorker;
+        int _frequency;
 
+        List<IStockIdentity> _stocks;
         List<StockInfo> _stockInfos;
-        internal BackgroundStockUpdater(IApiStockDataFetch apiStockFetch,List<IStockIdentity> stocks, int frequency)
+        internal BackgroundStockUpdater(IApiStockDataFetch apiStockFetch, int frequency)
         {
             _apiStockfetcher = apiStockFetch;
             _bWorker = new BackgroundWorker();
             _bWorker.DoWork += Fetch;
             _bWorker.RunWorkerCompleted += Completed;
             _bWorker.WorkerSupportsCancellation = true;
-            _stocks = stocks;
             _frequency = frequency;
-            createStockInfo();
 
         }
 
@@ -41,31 +37,22 @@ namespace Intuit.BusinessLogic.StockUpdaters
             _bWorker.Dispose();
         }
 
-        public void Start()
+        public void Start(List<IStockIdentity> stocks)
         {
-             FetchHistorical();
+             _stocks = stocks;
+            createStockInfo();
+            FetchHistorical();
+
             if (!_bWorker.IsBusy)
-                _bWorker.RunWorkerAsync();
+            _bWorker.RunWorkerAsync();
 
         }
-
-        
-        private void createStockInfo()
+        public void Stop()
         {
-            _stockInfos = new List<StockInfo>();
-            foreach (var item in _stocks)
-            {
-                _stockInfos.Add(new StockInfo() { ID = item.ID });
-            }
-
+            _bWorker.CancelAsync();
         }
-        private async void FetchHistorical()
-        {
-           
-            var task= await _apiStockfetcher.GetStockDataAsync(_stocks, 1);
-             mergeHistoricalStockList(task);
 
-        }
+       
         private  void Fetch(object sender, DoWorkEventArgs e)
         {
           
@@ -85,6 +72,39 @@ namespace Intuit.BusinessLogic.StockUpdaters
             e.Result = _stockInfos;
         }
 
+
+        private async void Completed(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!e.Cancelled)
+            {
+                if (Notify != null && e.Result != null)
+                {
+                    Notify.BeginInvoke((List<StockInfo>)e.Result, null, null);
+                }
+            }
+
+             await Task.Delay(_frequency);
+
+            if (!_bWorker.CancellationPending && !e.Cancelled && !_bWorker.IsBusy) _bWorker.RunWorkerAsync(); ;
+             
+        }
+
+        private void createStockInfo()
+        {
+            _stockInfos = new List<StockInfo>();
+            foreach (var item in _stocks)
+            {
+                _stockInfos.Add(new StockInfo() { ID = item.ID });
+            }
+
+        }
+        private async void FetchHistorical()
+        {
+
+            var task = await _apiStockfetcher.GetStockDataAsync(_stocks, 1);
+            mergeHistoricalStockList(task);
+
+        }
         private void mergeCurrentStockList(List<Stock> stock)
         {
             foreach (var item in stock)
@@ -97,6 +117,8 @@ namespace Intuit.BusinessLogic.StockUpdaters
         {
             var sInfo = _stockInfos.Where(a => a.ID == item.ID).FirstOrDefault();
             sInfo.Price = item.Price;
+            sInfo.Name = item.Name;
+            sInfo.ID = item.Name;
         }
 
         private void mergeHistoricalStockList(List<HistoricalStockData> stock)
@@ -104,30 +126,11 @@ namespace Intuit.BusinessLogic.StockUpdaters
             foreach (var item in stock)
             {
                 var sInfo = _stockInfos.Where(a => a.ID == item.ID).FirstOrDefault();
-                sInfo.PrevDayPrice =item.Price;
+                sInfo.PrevDayPrice = item.Price;
                 sInfo.High = item.High;
                 sInfo.Low = item.Low;
             }
         }
-
-
-        private async void Completed(object sender, RunWorkerCompletedEventArgs e)
-        {
-            
-            if (Notify != null && e.Result!=null)
-            {
-                Notify.BeginInvoke((List<StockInfo>)e.Result, null, null);
-            }
-
-             await Task.Delay(5000);
-
-            if (!_bWorker.CancellationPending && !e.Cancelled && !_bWorker.IsBusy) _bWorker.RunWorkerAsync(); ;
-             
-        }
-
-        public void Stop()
-        {
-            _bWorker.CancelAsync();
-        }
+      
     }
 }

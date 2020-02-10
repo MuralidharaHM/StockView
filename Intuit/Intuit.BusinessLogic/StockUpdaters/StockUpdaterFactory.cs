@@ -9,9 +9,9 @@ namespace Intuit.BusinessLogic.StockUpdaters
 {
    public  class StockUpdaterFactory
     {
-        public static IStockUpdater Create(List<IStockIdentity> stocks)
+        public static IStockUpdater Create()
         {
-            return new BackgroundWithApiFetchUpdater().Create(stocks);
+            return new BackgroundWithApiFetchUpdater().Create();
         }
     }
 }

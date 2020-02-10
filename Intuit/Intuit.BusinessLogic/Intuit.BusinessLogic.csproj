@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Search\StockSearch.cs" />
+    <Compile Include="Search\StockSearchFactory.cs" />
     <Compile Include="StockContainers\StockContainerFactory.cs" />
     <Compile Include="StockFetchers\ApiStockFetcher.cs" />
     <Compile Include="StockFetchers\StockFetcher.cs" />

@@ -13,7 +13,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
     /// </summary>
     public interface IStockUpdaterCreatorStrategy
     {
-        IStockUpdater Create(List<IStockIdentity> stocks);
+        IStockUpdater Create();
     }
     /// <summary>
     /// Aysnchronous Background Model with Api Strategy
@@ -21,14 +21,14 @@ namespace Intuit.BusinessLogic.StockUpdaters
     internal class BackgroundWithApiFetchUpdater: IStockUpdaterCreatorStrategy
     {
        
-        public IStockUpdater Create(List<IStockIdentity> stocks)
+        public IStockUpdater Create()
         {
-            return new BackgroundStockUpdater(new ApiStockDataFetch(), stocks, 5000);
+            return new BackgroundStockUpdater(new ApiStockDataFetch(), 5000);
         }
 
-        public IStockUpdater Create(List<IStockIdentity> stocks,int frequency)
+        public IStockUpdater Create(int frequency)
         {
-            return new BackgroundStockUpdater(new ApiStockDataFetch(), stocks, frequency);
+            return new BackgroundStockUpdater(new ApiStockDataFetch(), frequency);
         }
     }
 }

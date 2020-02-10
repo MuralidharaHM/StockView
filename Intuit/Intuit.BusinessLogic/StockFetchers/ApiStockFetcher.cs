@@ -158,28 +158,38 @@ namespace Intuit.BusinessLogic.StockFetchers
                     Price = list.historical[0].close
                 };
 
+
         }
+
+        /// <summary>
+        ///  this api feteches realtime data feom US stock exchange but since when showing the demo the stock market would be closed and prices will be contant 
+        ///  doing work arnd by adding random number to generate frequent chnaging price
+        /// </summary>
+        Random n = new Random();
         private Stock Convert(FinStock stock)
         {
             return new Stock()
             {
                 Name = stock.symbol,
                 ID = stock.symbol,
-                Price = stock.price
+                Price = stock.price +n.Next(-2, 10)
             };
 
 
         }
 
+        
         private IEnumerable<Stock> Convert(FinStockList stocks)
         {
+
             foreach (var stock in stocks.companiesPriceList)
             {
+               
                 yield return new Stock()
                 {
                     Name = stock.symbol,
                     ID = stock.symbol,
-                    Price = stock.price
+                    Price = stock.price +n.Next(-2,10)
                 };
 
 

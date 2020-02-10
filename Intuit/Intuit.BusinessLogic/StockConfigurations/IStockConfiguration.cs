@@ -21,7 +21,7 @@ namespace Intuit.BusinessLogic.StockConfigurations
 
     public interface IStockConfigurationDelete
     {
-        void Remove(IStock stock);
+        void Remove(string Id);
 
     }
 
