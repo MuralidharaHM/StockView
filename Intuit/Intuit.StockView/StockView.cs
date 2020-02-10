@@ -18,7 +18,7 @@ namespace Intuit.StockView
     {
         IDefinedStockContainer definedStockContainer;
         IStockUpdater stockUpdater;
-      
+        static int FrequencyModel ;
         public  StockView()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Intuit.StockView
             stockUpdater = StockUpdaterFactory.Create();
             stockUpdater.Notify += OnNotified;
 
-         
+            LoadFrequency();
         }
 
         private void onStockAdded()
@@ -58,6 +58,20 @@ namespace Intuit.StockView
                 dtGrdStockView.DataSource = null;
         }
 
+        private void LoadFrequency()
+        {
+            List<FrequencyModel> dic = new List<FrequencyModel>();
+            dic.Add(new FrequencyModel() {  Key=1000,Name="Seconds"});
+            dic.Add(new FrequencyModel() { Key = 3000, Name = "3 Seconds" });
+            dic.Add(new FrequencyModel() { Key = 5000, Name = "5 Seconds" });
+
+
+            cmbFrequency.DataSource = dic;
+            cmbFrequency.DisplayMember = "Name";
+            cmbFrequency.ValueMember = "Key";
+            cmbFrequency.SelectedItem = dic.FirstOrDefault();
+
+        }
         public void OnNotified(List<StockInfo> stock)
         {
             List<StockViewDisplay> dataSource = new List<StockViewDisplay>();
@@ -149,6 +163,16 @@ namespace Intuit.StockView
 
             StockRemoveView stckRemover = new StockRemoveView();
             stckRemover.ShowDialog();
+        }
+
+        private void btnFrequency_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbFrequency_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            stockUpdater.ChangeFrequency(((FrequencyModel)cmbFrequency.SelectedItem).Key);
         }
     }
 }

@@ -29,8 +29,12 @@ namespace Intuit.StockView
         public decimal Low { get; set; }
 
     }
-    public class StockViewMerger
+    public class FrequencyModel
     {
 
+        
+        public string Name { get; set; }
+
+        public int Key { get; set; }
     }
 }

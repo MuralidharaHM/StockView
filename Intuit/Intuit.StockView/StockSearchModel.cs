@@ -20,4 +20,11 @@ namespace Intuit.StockView
         public string StockExchange { get; set; }
 
     }
+
+    public enum Frequency
+    {
+        EveryMinute=1000,
+        ThreeMinutely=3000,
+        FiveMinutely= 5000,
+    }
 }

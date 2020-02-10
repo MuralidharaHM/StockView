@@ -12,7 +12,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
     {
         void Start(List<IStockIdentity> stocks);
         void Stop();
-
+        void ChangeFrequency(int frequency);
 
         event NotifyUpdate Notify;
     }

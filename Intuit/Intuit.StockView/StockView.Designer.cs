@@ -36,6 +36,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbFrequency = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrdStockView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,11 +116,31 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Welcome";
             // 
+            // cmbFrequency
+            // 
+            this.cmbFrequency.FormattingEnabled = true;
+            this.cmbFrequency.Location = new System.Drawing.Point(11, 258);
+            this.cmbFrequency.Name = "cmbFrequency";
+            this.cmbFrequency.Size = new System.Drawing.Size(121, 28);
+            this.cmbFrequency.TabIndex = 5;
+            this.cmbFrequency.SelectedIndexChanged += new System.EventHandler(this.cmbFrequency_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 235);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 20);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Set frequency";
+            // 
             // StockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1112, 644);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cmbFrequency);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.button1);
@@ -145,6 +167,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbFrequency;
+        private System.Windows.Forms.Label label2;
     }
 }
 

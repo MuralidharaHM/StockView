@@ -17,7 +17,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
 
         IApiStockDataFetch _apiStockfetcher;
         BackgroundWorker _bWorker;
-        int _frequency;
+        int _frequency = 5000;
 
         List<IStockIdentity> _stocks;
         List<StockInfo> _stockInfos;
@@ -131,6 +131,10 @@ namespace Intuit.BusinessLogic.StockUpdaters
                 sInfo.Low = item.Low;
             }
         }
-      
+
+        public void ChangeFrequency(int frequency)
+        {
+            _frequency = frequency;
+        }
     }
 }
