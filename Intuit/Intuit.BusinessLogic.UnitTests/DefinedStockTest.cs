@@ -29,7 +29,7 @@ namespace Intuit.BusinessLogic.UnitTests
             definedStockContainer.Add(new Stock() { Name = "GHM", ID = "GHM" });
             definedStockContainer.Add(new Stock() { Name = "PALL", ID = "PALL" });
             definedStockContainer.Add(new Stock() { Name = "TRTY", ID = "TRTY" });
-            definedStockContainer.Remove(definedStockContainer.Stocks[0]);
+            definedStockContainer.Remove("AAPL");
             Assert.IsTrue(4 == definedStockContainer.Stocks.Count);
         }
     }

@@ -174,5 +174,10 @@ namespace Intuit.StockView
         {
             stockUpdater.ChangeFrequency(((FrequencyModel)cmbFrequency.SelectedItem).Key);
         }
+
+        private void btnSaveStocks_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

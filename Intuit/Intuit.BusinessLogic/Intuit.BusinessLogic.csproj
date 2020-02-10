@@ -53,6 +53,8 @@
     <Compile Include="StockContainers\DefinedStockContainer.cs" />
     <Compile Include="StockContainers\IStockContainer.cs" />
     <Compile Include="StockFetchers\StockFetcherFactory.cs" />
+    <Compile Include="StockStore\IStockEntity.cs" />
+    <Compile Include="StockStore\StockStoreEntity.cs" />
     <Compile Include="Stocks\HistoricalStockData.cs" />
     <Compile Include="Stocks\IStock.cs" />
     <Compile Include="Stocks\Stock.cs" />

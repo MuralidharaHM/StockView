@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.BusinessLogic", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.BusinessLogic.UnitTests", "..\Intuit.BusinessLogic.UnitTests\Intuit.BusinessLogic.UnitTests.csproj", "{47B9FEEF-0BFF-43A3-8436-2E4ED88EFB32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.DataAccess", "..\Intuit.DataAccess\Intuit.DataAccess.csproj", "{49F93CA3-1620-41D6-8E63-3D49BA2A8F04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{47B9FEEF-0BFF-43A3-8436-2E4ED88EFB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47B9FEEF-0BFF-43A3-8436-2E4ED88EFB32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47B9FEEF-0BFF-43A3-8436-2E4ED88EFB32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F93CA3-1620-41D6-8E63-3D49BA2A8F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F93CA3-1620-41D6-8E63-3D49BA2A8F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F93CA3-1620-41D6-8E63-3D49BA2A8F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F93CA3-1620-41D6-8E63-3D49BA2A8F04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbFrequency = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnSaveStocks = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrdStockView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             // cmbFrequency
             // 
             this.cmbFrequency.FormattingEnabled = true;
-            this.cmbFrequency.Location = new System.Drawing.Point(11, 258);
+            this.cmbFrequency.Location = new System.Drawing.Point(11, 312);
             this.cmbFrequency.Name = "cmbFrequency";
             this.cmbFrequency.Size = new System.Drawing.Size(121, 28);
             this.cmbFrequency.TabIndex = 5;
@@ -128,17 +129,29 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 235);
+            this.label2.Location = new System.Drawing.Point(8, 289);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 20);
             this.label2.TabIndex = 6;
             this.label2.Text = "Set frequency";
+            // 
+            // btnSaveStocks
+            // 
+            this.btnSaveStocks.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveStocks.Location = new System.Drawing.Point(12, 231);
+            this.btnSaveStocks.Name = "btnSaveStocks";
+            this.btnSaveStocks.Size = new System.Drawing.Size(120, 44);
+            this.btnSaveStocks.TabIndex = 7;
+            this.btnSaveStocks.Text = "Save Stocks";
+            this.btnSaveStocks.UseVisualStyleBackColor = true;
+            this.btnSaveStocks.Click += new System.EventHandler(this.btnSaveStocks_Click);
             // 
             // StockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1112, 644);
+            this.Controls.Add(this.btnSaveStocks);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbFrequency);
             this.Controls.Add(this.label1);
@@ -169,6 +182,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbFrequency;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSaveStocks;
     }
 }
 
