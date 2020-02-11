@@ -40,7 +40,6 @@ namespace Intuit.StockView
 
         private void onStockAdded()
         {
-            stockUpdater.Stop();
             startUpdater();
         }
 
@@ -69,7 +68,7 @@ namespace Intuit.StockView
             cmbFrequency.DataSource = dic;
             cmbFrequency.DisplayMember = "Name";
             cmbFrequency.ValueMember = "Key";
-            cmbFrequency.SelectedItem = dic.FirstOrDefault();
+            cmbFrequency.SelectedItem = dic[2];
 
         }
         public void OnNotified(List<StockInfo> stock)

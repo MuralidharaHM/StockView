@@ -19,3 +19,5 @@
 /Intuit/Intuit.StockView/bin/Release
 /Intuit/Intuit.BusinessLogic.UnitTests/obj/Release
 /Intuit/Intuit.StockView/obj/Release
+/Intuit/packages/EntityFramework.6.4.0
+/Intuit/packages

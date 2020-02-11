@@ -35,6 +35,7 @@ namespace Intuit.BusinessLogic.StockUpdaters
         public void Dispose()
         {
             _bWorker.Dispose();
+         
         }
 
         public void Start(List<IStockIdentity> stocks)
