@@ -12,3 +12,7 @@ Stock View Desktop Application
  Intuit.DataAccess- Data Access
 
  Intuit.BusinessLogic.UnitTests -Unit Tests
+ 
+ # API for fetch Realtime Stock Data (Open Source US Market)
+ 
+ https://financialmodelingprep.com/api/v3/stock/real-time-price/
