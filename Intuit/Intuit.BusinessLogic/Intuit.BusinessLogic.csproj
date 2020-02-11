@@ -64,6 +64,7 @@
     <Compile Include="Stocks\HistoricalStockData.cs" />
     <Compile Include="Stocks\IStock.cs" />
     <Compile Include="Stocks\Stock.cs" />
+    <Compile Include="Stocks\StockInfo.cs" />
     <Compile Include="StockUpdaters\BackgroundStockUpdater.cs" />
     <Compile Include="StockUpdaters\IStockUpdater.cs" />
     <Compile Include="StockUpdaters\StockUpdaterCreator.cs" />
